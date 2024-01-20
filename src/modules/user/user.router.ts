@@ -79,4 +79,20 @@ router.put('/:id', (req: Request, res: Response) => {
   return res.json(updatedUser);
 });
 
+/**
+ * Delete User
+ */
+router.delete('/:id', (req: Request, res: Response) => {
+  const userId = req.params.id;
+  const userIndex = users.findIndex((u) => u.id === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  users.splice(userIndex, 1);
+
+  return res.status(204).send();
+});
+
 export default router;
