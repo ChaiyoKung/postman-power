@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { users } from './user.db';
+import { User } from './user.types';
+import { faker } from '@faker-js/faker';
 
 const router = express.Router();
 
@@ -36,6 +38,23 @@ router.get('/:id', (req: Request, res: Response) => {
   }
 
   return res.json(user);
+});
+
+/**
+ * Create User
+ */
+router.post('/', (req: Request, res: Response) => {
+  const newUser: User = {
+    id: faker.string.uuid(),
+    name: req.body.name,
+    email: req.body.email,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  users.push(newUser);
+
+  return res.status(201).json(newUser);
 });
 
 export default router;
