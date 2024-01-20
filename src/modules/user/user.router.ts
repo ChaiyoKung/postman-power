@@ -57,4 +57,26 @@ router.post('/', (req: Request, res: Response) => {
   return res.status(201).json(newUser);
 });
 
+/**
+ * Update User
+ */
+router.put('/:id', (req: Request, res: Response) => {
+  const userId = req.params.id;
+  const userIndex = users.findIndex((u) => u.id === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  const updatedUser: User = {
+    ...users[userIndex],
+    name: req.body.name || users[userIndex].name,
+    updatedAt: new Date(),
+  };
+
+  users[userIndex] = updatedUser;
+
+  return res.json(updatedUser);
+});
+
 export default router;
