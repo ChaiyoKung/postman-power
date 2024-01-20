@@ -24,4 +24,18 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
+/**
+ * Get User
+ */
+router.get('/:id', (req: Request, res: Response) => {
+  const userId = req.params.id;
+  const user = users.find((user) => user.id === userId);
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  return res.json(user);
+});
+
 export default router;
