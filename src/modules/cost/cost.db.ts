@@ -9,6 +9,16 @@ function createRandomCost(): Cost {
   };
 }
 
-export const costs: Array<Cost> = faker.helpers
-  .multiple(createRandomCost, { count: 10 })
-  .sort((a, b) => (a.date > b.date ? 1 : -1));
+function sortByDate(a: Cost, b: Cost) {
+  if (a.date > b.date) {
+    return 1;
+  }
+
+  if (b.date > a.date) {
+    return -1;
+  }
+
+  return 0;
+}
+
+export const costs: Array<Cost> = faker.helpers.multiple(createRandomCost, { count: 10 }).sort(sortByDate);
