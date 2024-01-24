@@ -5,7 +5,7 @@ function createRandomCost(): Cost {
   return {
     date: faker.date.past(),
     cost: faker.number.int({ min: 1, max: 1000 }),
-    currency: 'USD',
+    currency: faker.finance.currency().code,
   };
 }
 
