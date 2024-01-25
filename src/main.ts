@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import userRouter from './modules/user/user.router';
 import costRouter from './modules/cost/cost.router';
 import { apiKeyMiddleware } from './middlewares/api-key.middleware';
+import authRouter from './modules/auth/auth.router';
 
 const app = express();
 const port = 3000;
@@ -16,6 +17,7 @@ app.get('/', (_req: Request, res: Response) => {
   return res.send('Postman Power!');
 });
 
+app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/costs', apiKeyMiddleware, costRouter);
 
